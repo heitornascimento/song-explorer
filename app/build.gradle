@@ -4,6 +4,10 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.20'
 }
 
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
+
 android {
     namespace 'com.demo.songexplorer'
     compileSdk 32
@@ -35,6 +39,8 @@ android {
 
 dependencies {
     implementation project(path: ":features:song-discovery")
+    implementation libs.android.dagger.hilt
+    kapt libs.android.dagger.compiler
     implementation libs.androidx.appcompat
     implementation libs.androidx.constraintlayout
     implementation libs.google.material

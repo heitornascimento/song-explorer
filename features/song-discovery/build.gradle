@@ -4,6 +4,9 @@ plugins {
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.20'
 }
 
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
 android {
     namespace 'com.demo.song_discovery'
     compileSdk 32
@@ -30,6 +33,10 @@ android {
     kotlinOptions {
         jvmTarget = '11'
     }
+
+    buildFeatures {
+        viewBinding true
+    }
 }
 
 dependencies {
@@ -37,21 +44,31 @@ dependencies {
 
     implementation libs.kotlinx.coroutines.core
     implementation libs.kotlinx.coroutines.android
-
     implementation libs.androidx.appcompat
     implementation libs.androidx.recyclerview
     implementation libs.androidx.constraintlayout
-
     implementation libs.google.material
     implementation libs.androidx.activity.ktx
     implementation libs.androidx.core.ktx
     implementation libs.androidx.lifecycle.runtime.ktx
     implementation libs.androidx.lifecycle.viewModel.ktx
-
+    implementation libs.androidx.fragment.ktx
+    implementation libs.androidx.coordinator.layout
     implementation libs.kotlinx.serialization
     implementation libs.android.retrofit
     implementation libs.android.okhttp
     implementation libs.android.interceptor
     implementation libs.android.serialization.json
     implementation libs.android.serialization.converter
+    implementation libs.android.dagger.hilt
+    kapt libs.android.dagger.compiler
+
+    testImplementation libs.junit
+    implementation libs.android.core.testing
+    androidTestImplementation libs.android.junit
+    androidTestImplementation libs.android.espresso.core
+    androidTestImplementation libs.android.dagger.testing
+    testImplementation libs.android.coroutines.testing
+    testImplementation libs.android.mockk
+    testImplementation libs.android.stateflow.testing.turbine
 }

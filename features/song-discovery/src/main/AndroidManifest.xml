@@ -3,7 +3,8 @@
 
     <application>
         <activity
-            android:name=".SearchSongActivity"
+            android:name=".view.SearchSongActivity"
+            android:theme="@style/Theme.SongExplorer.NoActionBar"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"

@@ -15,13 +15,13 @@ buildscript {
     dependencies {
         classpath(libs.android.gradlePlugin)
         classpath(libs.kotlin.gradlePlugin)
-//        classpath(libs.kotlin.serializationPlugin)
+        classpath(libs.dagger.gradlePlugin)
     }
 }
 
 plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.7.20' apply false
-    id 'com.android.library' version '7.0.4' apply false
+    id 'com.android.library' version '7.3.1' apply false
     id 'org.jetbrains.kotlin.android' version '1.7.20' apply false
 }
 

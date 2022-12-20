@@ -1,4 +1,4 @@
-package com.demo.song_discovery.data
+package com.demo.song_discovery.domain
 
 import com.demo.song_discovery.data.model.SongDTO
 
