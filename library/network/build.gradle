@@ -1,0 +1,19 @@
+plugins {
+    id 'java-library'
+    id 'org.jetbrains.kotlin.jvm'
+    id 'kotlin'
+    id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.20'
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+    implementation libs.android.retrofit
+    implementation libs.android.okhttp
+    implementation libs.android.interceptor
+    implementation libs.android.serialization.json
+    implementation libs.android.serialization.converter
+}

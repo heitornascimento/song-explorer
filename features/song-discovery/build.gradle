@@ -1,21 +1,20 @@
 plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
     id 'org.jetbrains.kotlin.plugin.serialization' version '1.7.20'
 }
 
 android {
-    namespace 'com.demo.songexplorer'
+    namespace 'com.demo.song_discovery'
     compileSdk 32
 
     defaultConfig {
-        applicationId "com.demo.songexplorer"
-        minSdk 21
+        minSdk 32
         targetSdk 32
-        versionCode 1
-        versionName "1.0"
+        minSdk 21
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
     }
 
     buildTypes {
@@ -34,10 +33,25 @@ android {
 }
 
 dependencies {
-    implementation project(path: ":features:song-discovery")
+    implementation project(path: ":library:network")
+
+    implementation libs.kotlinx.coroutines.core
+    implementation libs.kotlinx.coroutines.android
+
     implementation libs.androidx.appcompat
+    implementation libs.androidx.recyclerview
     implementation libs.androidx.constraintlayout
+
     implementation libs.google.material
     implementation libs.androidx.activity.ktx
     implementation libs.androidx.core.ktx
+    implementation libs.androidx.lifecycle.runtime.ktx
+    implementation libs.androidx.lifecycle.viewModel.ktx
+
+    implementation libs.kotlinx.serialization
+    implementation libs.android.retrofit
+    implementation libs.android.okhttp
+    implementation libs.android.interceptor
+    implementation libs.android.serialization.json
+    implementation libs.android.serialization.converter
 }
