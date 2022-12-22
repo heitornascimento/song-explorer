@@ -5,4 +5,4 @@ import com.demo.song_discovery.domain.model.Song
 
 fun List<SongDTO>.toSongs() = map{ it.toSong()}
 
-fun SongDTO.toSong() = Song(releaseDate, artWorkUrl, track, artist, shortDescription)
+fun SongDTO.toSong() = Song(releaseDate, artWorkUrl, track ?: "", artist, shortDescription)

@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.demo.song_discovery.databinding.SongItemBinding
 import com.demo.song_discovery.domain.model.Song
 
@@ -22,7 +23,11 @@ class SongListAdapter() : ListAdapter<Song, SongListAdapter.SongViewHolder>(Diff
         RecyclerView.ViewHolder(view.root) {
 
         fun bind(song: Song) {
-            view.textView.text = song.track
+            view.trackName.text = song.track
+            view.artistName?.text = song.artist
+            view.artwork?.load(song.artWorkUrl)
+            view.description?.text = song.shortDescription
+            view.dateTime?.text = song.releaseDate
         }
     }
 

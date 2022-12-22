@@ -3,6 +3,7 @@ package com.demo.network
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.json.Json
+import okhttp3.Interceptor
 import okhttp3.MediaType.Companion.toMediaType
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -16,8 +17,17 @@ fun buildOkHttpClient(): OkHttpClient {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
+    val denmarkCountryInterceptor = Interceptor {
+        val original = it.request()
+        val url = original.url
+        val newHttpUrl = url.newBuilder().addQueryParameter("country", "dk").build()
+        val request = original.newBuilder().url(newHttpUrl)
+        it.proceed(request.build())
+    }
+
     val builder = OkHttpClient.Builder()
         .addInterceptor(httpLoggingInterceptor)
+        .addInterceptor(denmarkCountryInterceptor)
 
     return builder.build()
 }

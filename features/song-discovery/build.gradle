@@ -61,6 +61,7 @@ dependencies {
     implementation libs.android.serialization.json
     implementation libs.android.serialization.converter
     implementation libs.android.dagger.hilt
+    implementation libs.coid.image.loader
     kapt libs.android.dagger.compiler
 
     testImplementation libs.junit

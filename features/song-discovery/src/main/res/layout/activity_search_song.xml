@@ -13,23 +13,29 @@
         android:layout_height="wrap_content"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <androidx.appcompat.widget.SearchView
+            app:queryHint="Type song name"
+            android:id="@+id/searchView"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:title="@string/song_list_title" />
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            app:iconifiedByDefault="false"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/loading"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/song_list"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"

@@ -1,19 +1,21 @@
 package com.demo.song_discovery.view
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.demo.song_discovery.databinding.ActivitySearchSongBinding
 import com.demo.song_discovery.domain.model.Song
 import com.demo.song_discovery.view.adapter.SongListAdapter
+import com.demo.song_discovery.view.core.hideShrink
+import com.demo.song_discovery.view.core.show
 import com.demo.song_discovery.view.state.SongViewState
 import com.demo.song_discovery.view.viewmodel.SearchViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
-import java.net.URLEncoder
 
 @AndroidEntryPoint
 class SearchSongActivity : AppCompatActivity() {
@@ -30,32 +32,63 @@ class SearchSongActivity : AppCompatActivity() {
         initObserver()
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                query?.let {
+                    viewModel.querySong(it)
+                    return true
+                }
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                return false
+            }
+        })
+    }
+
     private fun initView() {
         songListAdapter = SongListAdapter()
         with(binding.songList) {
-            layoutManager = LinearLayoutManager(this@SearchSongActivity)
+            layoutManager =  GridLayoutManager(this@SearchSongActivity, 2)
             adapter = songListAdapter
         }
     }
 
     private fun initObserver() {
         lifecycleScope.launchWhenResumed {
-
-            val params = withContext(Dispatchers.IO) {
-                URLEncoder.encode("Jack Johnson", "utf-8")
-            }
-            viewModel.querySong(params)
             viewModel.state.collect {
                 when (it) {
-                    SongViewState.Failure -> {}
-                    SongViewState.Idle -> viewModel.querySong(params)
-                    SongViewState.Searching -> {}
+                    SongViewState.Failure -> setError()
+                    SongViewState.Idle -> setIdle()
+                    SongViewState.Searching -> setLoading()
                     is SongViewState.Success -> showSongList(it.songs)
                 }
             }
-
         }
     }
 
-    private fun showSongList(data: List<Song>) = songListAdapter.submitList(data)
+    private fun setError(){
+        Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun setLoading(){
+        Toast.makeText(this, "LOADING", Toast.LENGTH_SHORT).show()
+        binding.loading.show()
+    }
+
+    private fun setIdle(){
+        binding.loading.hideShrink()
+        binding.songList.hideShrink()
+    }
+
+    private fun showSongList(data: List<Song>) {
+        binding.loading.hideShrink()
+        binding.songList.show()
+        songListAdapter.submitList(data)
+    }
 }

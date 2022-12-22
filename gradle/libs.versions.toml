@@ -31,6 +31,7 @@ android-dagger-testing = "2.44"
 kotlin-coroutines-testing = "1.6.4"
 android-mockk = "1.12.0"
 stateflow-testing = "0.11.0"
+image-loader = "2.2.2"
 
 [libraries]
 #Android
@@ -73,3 +74,5 @@ android-dagger-testing = {group = "com.google.dagger", name = "hilt-android-test
 android-coroutines-testing = {group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-test", version.ref = "kotlin-coroutines-testing" }
 android-mockk = {group = "io.mockk", name = "mockk", version.ref = "android-mockk" }
 android-stateflow-testing-turbine = {group = "app.cash.turbine", name = "turbine", version.ref = "stateflow-testing" }
+#Image Loader
+coid-image-loader = {group = "io.coil-kt", name = "coil", version.ref = "image-loader" }

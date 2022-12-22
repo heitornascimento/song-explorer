@@ -1,16 +1,20 @@
 package com.demo.song_discovery.view.viewmodel
 
+import android.util.Log
 import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.demo.song_discovery.di.MainDispatcher
 import com.demo.song_discovery.domain.SearchSongs
 import com.demo.song_discovery.view.state.SongViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import java.net.URLEncoder
 import javax.inject.Inject
 
 @HiltViewModel
@@ -28,15 +32,18 @@ class SearchViewModel @Inject constructor(
         if (state.value == SongViewState.Searching) return
 
         viewModelScope.launch(dispatcher) {
+            val queryEncoded =  URLEncoder.encode(query, "utf-8")
 
             runCatching {
                 stateFlow.tryEmit(SongViewState.Searching)
                 searchSongs(query)
             }
                 .onSuccess { stateFlow.tryEmit(SongViewState.Success(it)) }
-                .onFailure { stateFlow.tryEmit(SongViewState.Failure) }
+                .onFailure { error : Throwable ->
+                    Log.d("itunes", error.message!!)
+                    stateFlow.tryEmit(SongViewState.Failure)
+                }
 
         }
-
     }
 }
