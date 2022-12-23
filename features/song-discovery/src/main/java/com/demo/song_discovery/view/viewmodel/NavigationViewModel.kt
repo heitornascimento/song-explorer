@@ -8,9 +8,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class NavigationViewModel @Inject constructor() : ViewModel() {
-
     private  val _navigationState = MutableStateFlow<NavigationViewState>(NavigationViewState.SearchSongView)
     val navigationState = _navigationState
-
-
 }

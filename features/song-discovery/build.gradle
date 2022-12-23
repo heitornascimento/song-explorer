@@ -65,7 +65,9 @@ dependencies {
     implementation libs.android.serialization.json
     implementation libs.android.serialization.converter
     implementation libs.android.dagger.hilt
-    implementation libs.coid.image.loader
+    implementation libs.coil.image.loader
+    implementation libs.navigation.fragment
+    implementation libs.navigation.ui
     kapt libs.android.dagger.compiler
 
     testImplementation libs.junit
@@ -76,12 +78,5 @@ dependencies {
     testImplementation libs.android.coroutines.testing
     testImplementation libs.android.mockk
     testImplementation libs.android.stateflow.testing.turbine
-
-    implementation("androidx.navigation:navigation-fragment-ktx:2.5.3")
-    implementation("androidx.navigation:navigation-ui-ktx:2.5.3")
-    // Feature module Support
-    implementation("androidx.navigation:navigation-dynamic-features-fragment:2.5.3")
-    // Testing Navigation
-    androidTestImplementation("androidx.navigation:navigation-testing:2.5.3")
 
 }

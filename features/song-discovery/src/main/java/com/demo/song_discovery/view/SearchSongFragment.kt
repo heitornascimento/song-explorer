@@ -1,11 +1,11 @@
 package com.demo.song_discovery.view
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -88,9 +88,7 @@ class SearchSongFragment : Fragment() {
         binding.songList.hideShrink()
     }
 
-    private fun setLoading() {
-        binding.loading.show()
-    }
+    private fun setLoading() = binding.loading.show()
 
     private fun setIdle() {
         binding.loading.hideShrink()
@@ -106,7 +104,5 @@ class SearchSongFragment : Fragment() {
         }
     }
 
-    private fun onSongDetails(song : Song){
-        navigationViewModel.navigationState.tryEmit(NavigationViewState.SongDetailsView(song))
-    }
+    private fun onSongDetails(song : Song) = navigationViewModel.navigationState.tryEmit(NavigationViewState.SongDetailsView(song))
 }

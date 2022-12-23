@@ -32,6 +32,7 @@ kotlin-coroutines-testing = "1.6.4"
 android-mockk = "1.12.0"
 stateflow-testing = "0.11.0"
 image-loader = "2.2.2"
+navigation = "2.5.3"
 
 [libraries]
 #Android
@@ -75,4 +76,7 @@ android-coroutines-testing = {group = "org.jetbrains.kotlinx", name = "kotlinx-c
 android-mockk = {group = "io.mockk", name = "mockk", version.ref = "android-mockk" }
 android-stateflow-testing-turbine = {group = "app.cash.turbine", name = "turbine", version.ref = "stateflow-testing" }
 #Image Loader
-coid-image-loader = {group = "io.coil-kt", name = "coil", version.ref = "image-loader" }
+coil-image-loader = {group = "io.coil-kt", name = "coil", version.ref = "image-loader" }
+#Navigation
+navigation-fragment = {group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigation" }
+navigation-ui = {group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigation" }
