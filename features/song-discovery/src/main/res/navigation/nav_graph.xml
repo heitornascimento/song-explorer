@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/searchTrackFragment">
+
+    <fragment
+        android:id="@+id/searchTrackFragment"
+        android:name="com.demo.song_discovery.view.SearchSongFragment"
+        android:label="fragment_search_track"
+        tools:layout="@layout/fragment_search_song" >
+        <action
+            android:id="@+id/action_searchTrackFragment_to_songDetailsFragment"
+            app:destination="@id/songDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/songDetailsFragment"
+        android:name="com.demo.song_discovery.view.SongDetailsFragment"
+        android:label="fragment_song_details"
+        tools:layout="@layout/fragment_song_details" />
+</navigation>

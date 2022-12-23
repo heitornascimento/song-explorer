@@ -10,7 +10,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         val intent = Intent()
-        intent.setClassName(this, "com.demo.song_discovery.view.SearchSongActivity")
+        intent.setClassName(this, "com.demo.song_discovery.view.SongExplorerActivity")
         startActivity(intent)
         finish()
     }

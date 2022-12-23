@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import androidx.fragment.app.Fragment
 
 fun View.show() : View {
     if (visibility != View.VISIBLE) {
@@ -26,8 +27,8 @@ fun View.hide() : View {
     return this
 }
 
-fun Activity.hideKeyboard() {
-    hideKeyboard(currentFocus ?: View(this))
+fun Fragment.hideSearchKeyboard() {
+    requireContext().hideKeyboard(activity?.currentFocus ?: View(activity))
 }
 
 fun Context.hideKeyboard(view: View) {

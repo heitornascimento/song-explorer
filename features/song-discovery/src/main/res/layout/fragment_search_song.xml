@@ -5,33 +5,33 @@
     android:id="@+id/main_content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.SearchSongActivity">
+    tools:context=".view.SearchSongFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/appBar"
-        android:background="@color/teal_200"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@color/teal_200"
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
         <androidx.appcompat.widget.SearchView
-            app:queryHint="@string/type_song"
             android:id="@+id/searchView"
-            android:background="@color/teal_200"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
+            android:background="@color/teal_200"
             app:iconifiedByDefault="false"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap" />
+            app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+            app:queryHint="@string/type_song" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/loading"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:indeterminate="true"
+        android:visibility="gone"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
 
@@ -40,7 +40,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:clipToPadding="false"
-        tools:listitem="@layout/song_item"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:listitem="@layout/song_item" />
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
+

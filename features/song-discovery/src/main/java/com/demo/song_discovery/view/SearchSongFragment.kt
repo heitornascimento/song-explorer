@@ -1,46 +1,54 @@
 package com.demo.song_discovery.view
 
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.GridLayoutManager
 import com.demo.song_discovery.R
-import com.demo.song_discovery.databinding.ActivitySearchSongBinding
+import com.demo.song_discovery.databinding.FragmentSearchSongBinding
 import com.demo.song_discovery.domain.model.Song
 import com.demo.song_discovery.view.adapter.SongListAdapter
-import com.demo.song_discovery.view.core.hideKeyboard
+import com.demo.song_discovery.view.core.hideSearchKeyboard
 import com.demo.song_discovery.view.core.hideShrink
 import com.demo.song_discovery.view.core.show
+import com.demo.song_discovery.view.state.NavigationViewState
 import com.demo.song_discovery.view.state.SongViewState
+import com.demo.song_discovery.view.viewmodel.NavigationViewModel
 import com.demo.song_discovery.view.viewmodel.SearchViewModel
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SearchSongActivity : AppCompatActivity() {
+class SearchSongFragment : Fragment() {
 
-    private lateinit var binding: ActivitySearchSongBinding
+    private lateinit var binding: FragmentSearchSongBinding
     private lateinit var songListAdapter: SongListAdapter
     private val viewModel: SearchViewModel by viewModels()
+    private val navigationViewModel: NavigationViewModel by activityViewModels()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivitySearchSongBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        binding = FragmentSearchSongBinding.inflate(inflater, container, false)
         initView()
         initObserver()
+        return binding.root
     }
 
-    override fun onResume() {
+        override fun onResume() {
         super.onResume()
-
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
             override fun onQueryTextSubmit(query: String?): Boolean {
                 query?.let {
-                    hideKeyboard()
+                    hideSearchKeyboard()
                     viewModel.querySong(it)
                     return true
                 }
@@ -54,9 +62,9 @@ class SearchSongActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-        songListAdapter = SongListAdapter()
+        songListAdapter = SongListAdapter(this::onSongDetails)
         with(binding.songList) {
-            layoutManager = GridLayoutManager(this@SearchSongActivity, 2)
+            layoutManager = GridLayoutManager(requireContext(), 2)
             adapter = songListAdapter
         }
     }
@@ -75,7 +83,7 @@ class SearchSongActivity : AppCompatActivity() {
     }
 
     private fun setError() {
-        Snackbar.make(findViewById(R.id.main_content), R.string.error_message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(binding.root.findViewById(R.id.main_content), R.string.error_message, Snackbar.LENGTH_SHORT).show()
         binding.loading.hideShrink()
         binding.songList.hideShrink()
     }
@@ -94,8 +102,11 @@ class SearchSongActivity : AppCompatActivity() {
         binding.songList.show()
         songListAdapter.submitList(data)
         if(data.isEmpty()){
-            Snackbar.make(findViewById(R.id.main_content), R.string.empty_state, Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(binding.root.findViewById(R.id.main_content), R.string.empty_state, Snackbar.LENGTH_SHORT).show()
         }
     }
 
+    private fun onSongDetails(song : Song){
+        navigationViewModel.navigationState.tryEmit(NavigationViewState.SongDetailsView(song))
+    }
 }

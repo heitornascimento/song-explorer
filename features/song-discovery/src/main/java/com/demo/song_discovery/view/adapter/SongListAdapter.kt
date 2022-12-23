@@ -11,7 +11,8 @@ import com.demo.song_discovery.databinding.SongItemBinding
 import com.demo.song_discovery.domain.mapper.convertUrlImageScreenDimension
 import com.demo.song_discovery.domain.model.Song
 
-class SongListAdapter() : ListAdapter<Song, SongListAdapter.SongViewHolder>(DiffCallBack()) {
+class SongListAdapter(private val onSongDetail: (song: Song) -> Unit) :
+    ListAdapter<Song, SongListAdapter.SongViewHolder>(DiffCallBack()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SongViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -19,7 +20,8 @@ class SongListAdapter() : ListAdapter<Song, SongListAdapter.SongViewHolder>(Diff
         return SongViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: SongViewHolder, position: Int) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: SongViewHolder, position: Int) =
+        holder.bind(getItem(position))
 
     inner class SongViewHolder(private val view: SongItemBinding) :
         RecyclerView.ViewHolder(view.root) {
@@ -27,9 +29,12 @@ class SongListAdapter() : ListAdapter<Song, SongListAdapter.SongViewHolder>(Diff
         fun bind(song: Song) {
             view.trackName.text = song.track
             view.artistName?.text = song.artist
-            val newUrl = convertUrlImageScreenDimension(song.artWorkUrl)
-            view.artwork?.load(newUrl)
+            view.artwork?.load(song.artWorkUrl)
             view.dateTime?.text = song.releaseDate
+
+            view.root.setOnClickListener {
+                onSongDetail(song)
+            }
         }
     }
 

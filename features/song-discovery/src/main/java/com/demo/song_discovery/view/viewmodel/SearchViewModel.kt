@@ -7,6 +7,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
 import com.demo.song_discovery.di.MainDispatcher
 import com.demo.song_discovery.domain.SearchSongs
+import com.demo.song_discovery.view.state.NavigationViewState
 import com.demo.song_discovery.view.state.SongViewState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -26,7 +27,6 @@ class SearchViewModel @Inject constructor(
     @VisibleForTesting
     internal val stateFlow = MutableStateFlow<SongViewState>(SongViewState.Idle)
     val state: StateFlow<SongViewState> = stateFlow
-
 
     fun querySong(query: String) {
         if (state.value == SongViewState.Searching) return
