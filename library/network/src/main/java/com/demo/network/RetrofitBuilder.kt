@@ -17,17 +17,20 @@ fun buildOkHttpClient(): OkHttpClient {
         level = HttpLoggingInterceptor.Level.BODY
     }
 
-    val denmarkCountryInterceptor = Interceptor {
+    val denmarkMusicInterceptor = Interceptor {
         val original = it.request()
         val url = original.url
-        val newHttpUrl = url.newBuilder().addQueryParameter("country", "dk").build()
+        val newHttpUrl = url.newBuilder()
+            .addQueryParameter("media", "music")
+            .addQueryParameter("country", "dk").build()
         val request = original.newBuilder().url(newHttpUrl)
         it.proceed(request.build())
     }
 
+
     val builder = OkHttpClient.Builder()
         .addInterceptor(httpLoggingInterceptor)
-        .addInterceptor(denmarkCountryInterceptor)
+        .addInterceptor(denmarkMusicInterceptor)
 
     return builder.build()
 }

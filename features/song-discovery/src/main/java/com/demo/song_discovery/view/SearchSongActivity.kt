@@ -73,6 +73,8 @@ class SearchSongActivity : AppCompatActivity() {
     }
 
     private fun setError(){
+        binding.loading.hideShrink()
+        binding.songList.hideShrink()
         Toast.makeText(this, "ERROR", Toast.LENGTH_SHORT).show()
     }
 

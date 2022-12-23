@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size">25dp</dimen>
+    <dimen name="spacing_x1">4dp</dimen>
+    <dimen name="spacing_x2">8dp</dimen>
+    <dimen name="spacing_x3">12dp</dimen>
+
+    <dimen name="text_size_x1">8sp</dimen>
+    <dimen name="text_size_x2">12sp</dimen>
+    <dimen name="text_size_x3">16sp</dimen>
+    <dimen name="text_size_x4">20sp</dimen>
+    <dimen name="text_size_x5">24sp</dimen>
+    <dimen name="text_size_x6">28sp</dimen>
+    <dimen name="text_size_x7">32sp</dimen>
+
+    <dimen name="card_height">140dp</dimen>
+</resources>

@@ -14,7 +14,7 @@ android {
     defaultConfig {
         minSdk 32
         targetSdk 32
-        minSdk 21
+        minSdk 26
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
@@ -36,6 +36,10 @@ android {
 
     buildFeatures {
         viewBinding true
+    }
+
+    testOptions {
+        unitTests.returnDefaultValues = false
     }
 }
 
@@ -72,4 +76,8 @@ dependencies {
     testImplementation libs.android.coroutines.testing
     testImplementation libs.android.mockk
     testImplementation libs.android.stateflow.testing.turbine
+
+    testImplementation 'org.mockito:mockito-core:3.5.15'
+    testImplementation 'org.powermock:powermock-mockito-release-full:1.5.4'
+
 }

@@ -1,5 +1,6 @@
 package com.demo.song_discovery.view.adapter
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
 import com.demo.song_discovery.databinding.SongItemBinding
+import com.demo.song_discovery.domain.mapper.convertUrlImageScreenDimension
 import com.demo.song_discovery.domain.model.Song
 
 class SongListAdapter() : ListAdapter<Song, SongListAdapter.SongViewHolder>(DiffCallBack()) {
@@ -25,8 +27,8 @@ class SongListAdapter() : ListAdapter<Song, SongListAdapter.SongViewHolder>(Diff
         fun bind(song: Song) {
             view.trackName.text = song.track
             view.artistName?.text = song.artist
-            view.artwork?.load(song.artWorkUrl)
-            view.description?.text = song.shortDescription
+            val newUrl = convertUrlImageScreenDimension(song.artWorkUrl)
+            view.artwork?.load(newUrl)
             view.dateTime?.text = song.releaseDate
         }
     }

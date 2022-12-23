@@ -45,4 +45,5 @@ class SearchViewModelTest {
             coVerify {  searchSongUseCaseMock.invoke(any()) }
         }
     }
+
 }
