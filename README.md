@@ -7,7 +7,6 @@
 - Coroutines
 - State Flow for reactive programming
 - Retrofit - Kotlin Serialization
-- Unit Test on the View Layer 
 - Dagger Hilt
 - Test - Mockk and Turbine for StateFlow
 - TOML dependency formatting
