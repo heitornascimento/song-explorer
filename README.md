@@ -13,7 +13,8 @@
 
 ## Demo
 
-[v3.webm](https://user-images.githubusercontent.com/121907/209259717-aba8ed29-fd3a-4912-9867-063124333f7d.webm)
+[final.webm](https://user-images.githubusercontent.com/121907/209346251-29aa2953-5634-4b76-9d3e-2639da4be724.webm)
+
 
 
 ## Architecture
@@ -39,7 +40,7 @@ In particular for date layer, I would mockwebserver to mock the http request.
 
 #### Hacking on the artwork url:
 
-According to the API, the endpoint only provides  the size of the image. But all of them are are very small. So I have changed the path to bigger image size. In a real world scenario, the app should only retrieve images proper for your screen dimension and size.
+According to the API, the endpoint only provides three images size. But all of them are are very small. So I have changed the path to bigger image size. In a real world scenario, the app should only retrieve images proper for your screen dimension and size.
 
 #### Improvements
 
