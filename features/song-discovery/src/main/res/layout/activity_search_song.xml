@@ -15,7 +15,7 @@
         android:theme="@style/Theme.AppCompat.NoActionBar">
 
         <androidx.appcompat.widget.SearchView
-            app:queryHint="Type song name"
+            app:queryHint="@string/type_song"
             android:id="@+id/searchView"
             android:background="@color/teal_200"
             android:layout_width="match_parent"
