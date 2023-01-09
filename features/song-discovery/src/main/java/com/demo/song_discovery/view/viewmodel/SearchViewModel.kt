@@ -32,8 +32,6 @@ class SearchViewModel @Inject constructor(
         if (state.value == SongViewState.Searching) return
 
         viewModelScope.launch(dispatcher) {
-            val queryEncoded =  URLEncoder.encode(query, "utf-8")
-
             runCatching {
                 stateFlow.tryEmit(SongViewState.Searching)
                 searchSongs(query)
