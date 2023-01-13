@@ -8,7 +8,9 @@ import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.demo.song_discovery.R
 import com.demo.song_discovery.databinding.FragmentSearchSongBinding
@@ -42,7 +44,7 @@ class SearchSongFragment : Fragment() {
         return binding.root
     }
 
-        override fun onResume() {
+    override fun onResume() {
         super.onResume()
         binding.searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
 
@@ -71,19 +73,25 @@ class SearchSongFragment : Fragment() {
 
     private fun initObserver() {
         lifecycleScope.launchWhenResumed {
-            viewModel.state.collect {
-                when (it) {
-                    SongViewState.Failure -> setError()
-                    SongViewState.Idle -> setIdle()
-                    SongViewState.Searching -> setLoading()
-                    is SongViewState.Success -> showSongList(it.songs)
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED){
+                viewModel.state.collect {
+                    when (it) {
+                        SongViewState.Failure -> setError()
+                        SongViewState.Idle -> setIdle()
+                        SongViewState.Searching -> setLoading()
+                        is SongViewState.Success -> showSongList(it.songs)
+                    }
                 }
             }
         }
     }
 
     private fun setError() {
-        Snackbar.make(binding.root.findViewById(R.id.main_content), R.string.error_message, Snackbar.LENGTH_SHORT).show()
+        Snackbar.make(
+            binding.root.findViewById(R.id.main_content),
+            R.string.error_message,
+            Snackbar.LENGTH_SHORT
+        ).show()
         binding.loading.hideShrink()
         binding.songList.hideShrink()
     }
@@ -99,10 +107,15 @@ class SearchSongFragment : Fragment() {
         binding.loading.hideShrink()
         binding.songList.show()
         songListAdapter.submitList(data)
-        if(data.isEmpty()){
-            Snackbar.make(binding.root.findViewById(R.id.main_content), R.string.empty_state, Snackbar.LENGTH_SHORT).show()
+        if (data.isEmpty()) {
+            Snackbar.make(
+                binding.root.findViewById(R.id.main_content),
+                R.string.empty_state,
+                Snackbar.LENGTH_SHORT
+            ).show()
         }
     }
 
-    private fun onSongDetails(song : Song) = navigationViewModel.navigationState.tryEmit(NavigationViewState.SongDetailsView(song))
+    private fun onSongDetails(song: Song) =
+        navigationViewModel.navigationState.tryEmit(NavigationViewState.SongDetailsView(song))
 }
